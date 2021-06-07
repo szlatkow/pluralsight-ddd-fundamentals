@@ -117,6 +117,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download artifacts
+        id: download_artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}
+          path: Artifacts/
+
       - name: Publish to NuGet
         id: publish_to_nuget
         shell: pwsh
