@@ -88,7 +88,7 @@ jobs:
         run: |
           nuget pack .\SharedKernel\src\PluralsightDdd.SharedKernel\PluralsightDdd.SharedKernel.csproj `
           -OutputDirectory Artifacts `
-          -Version ${{ steps.tag_generator.outputs.latest_version }}
+          -Version ${{ steps.tag_generator.outputs.new_version }}
 
   cd:
     if: needs.ci.outputs.latest_version != ''
