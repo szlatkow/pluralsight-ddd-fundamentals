@@ -128,7 +128,7 @@ jobs:
         id: publish_to_nuget
         shell: pwsh
         run: |
-          nuget push .\Artifacts\PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}.nupkg `
+          nuget push Artifacts\PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}.nupkg `
           -Source https://api.nuget.org/v3/index.json `
           -ApiKey ${{ secrets.NUGET_API_KEY }}
 
