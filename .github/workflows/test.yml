@@ -104,7 +104,7 @@ jobs:
         id: create_nuget_package
         shell: pwsh
         run: |
-          nuget pack SharedKernel\src\PluralsightDdd.SharedKernel\PluralsightDdd.SharedKernel.csproj `
+          nuget pack .\SharedKernel\src\PluralsightDdd.SharedKernel\PluralsightDdd.SharedKernel.csproj `
           -OutputDirectory Artifacts `
           -Version ${{ needs.ci.outputs.latest_version }}
 
