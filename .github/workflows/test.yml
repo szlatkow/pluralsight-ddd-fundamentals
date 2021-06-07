@@ -83,6 +83,22 @@ jobs:
         run: |
           dotnet test .\SharedKernel\SharedKernel.sln --configuration Release --no-build
 
+      - name: Create NuGet Package
+        id: create_nuget_package
+        shell: pwsh
+        run: |
+          nuget pack .\SharedKernel\src\PluralsightDdd.SharedKernel\PluralsightDdd.SharedKernel.csproj `
+          -OutputDirectory Artifacts `
+          -properties Configuration=Release `
+          -Version ${{ steps.tag_generator.outputs.new_version }}
+
+      - name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: PluralsightDdd.SharedKernel.${{ steps.tag_generator.outputs.new_version }}
+          path: Artifacts/
+
   cd:
     if: needs.ci.outputs.latest_version != ''
     name: Continuous Deployment
@@ -100,22 +116,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Create NuGet Package
-        id: create_nuget_package
-        shell: pwsh
-        run: |
-          nuget pack .\SharedKernel\src\PluralsightDdd.SharedKernel\PluralsightDdd.SharedKernel.csproj `
-          -OutputDirectory Artifacts `
-          -properties Configuration=Release `
-          -Version ${{ needs.ci.outputs.latest_version }}
-
-      - name: Upload artifacts
-        id: upload_artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}
-          path: Artifacts/
 
       - name: Publish to NuGet
         id: publish_to_nuget
