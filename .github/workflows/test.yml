@@ -134,11 +134,11 @@ jobs:
           nuget push ./Artifacts/PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}.nupkg `
           -Source https://api.nuget.org/v3/index.json `
           -ApiKey ${{ secrets.NUGET_API_KEY }}
+        continue-on-error: true
 
       - name: Create and publish release
         id: create_release
         uses: softprops/action-gh-release@v1
-        continue-on-error: true
         with:
           name: PluralsightDdd.SharedKernel ${{ needs.ci.outputs.latest_version }}
           tag_name: v${{ needs.ci.outputs.latest_version }}
