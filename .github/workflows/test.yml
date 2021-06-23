@@ -87,8 +87,8 @@ jobs:
         id: create_release
         shell: pwsh
         run: |
-          $releaseTag = ${{ needs.ci.outputs.latest_version }}
-          $releaseTitle = ${{ needs.ci.outputs.latest_version }}
+          $releaseTag = "v${{ needs.ci.outputs.latest_version }}"
+          $releaseTitle = "PluralsightDdd.SharedKernel ${{ needs.ci.outputs.latest_version }}"
           $releaseAssets = 'Artifacts/PluralsightDdd.SharedKernel.${{ needs.ci.outputs.latest_version }}.nupkg'
 
           gh release create $releaseTag --title $releaseTitle $releaseAssets
